@@ -50,6 +50,10 @@ public class Main {
             IntStream.range(0, incidenceMatrix[0].length).forEach(j -> System.out.printf("%4d", matrix[j]));
             System.out.println();
         }
+
+        int graphOrder = graph.getGraphOrder();
+        System.out.println("Ordem do grafo");
+        System.out.println(graphOrder);
     }
 
 

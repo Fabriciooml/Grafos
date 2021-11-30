@@ -94,4 +94,8 @@ public class Graph {
         }
         return incidenceMatrix;
     }
+
+    public int getGraphOrder(){
+        return vertexList.size();
+    }
 }
