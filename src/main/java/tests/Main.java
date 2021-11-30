@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 
 public class Main {
     static Graph createGraph() {
-        Graph graph = new Graph();
+        Graph graph = new Graph(false);
         Vertex v1 = graph.addVertex("v1");
         Vertex v2 = graph.addVertex("v2");
         Vertex v3 = graph.addVertex("v3");
@@ -37,7 +37,7 @@ public class Main {
         List<Vertex> adjListVertexV1 = graph.getAdjListVertex(v1);
         System.out.println(adjListVertexV1);
 
-        System.out.println("Matriz de Adjacências");
+        System.out.println("\nMatriz de Adjacências");
         int[][] adjMatrix = graph.getAdjMatrix();
         for (int[] matrix : adjMatrix) {
             IntStream.range(0, adjMatrix.length).forEach(j -> System.out.printf("%4d", matrix[j]));
@@ -45,15 +45,23 @@ public class Main {
         }
 
         int[][] incidenceMatrix = graph.getIncidenceMatrix();
-        System.out.println("Matriz de incidência");
-        for (int[] matrix : incidenceMatrix) {
-            IntStream.range(0, incidenceMatrix[0].length).forEach(j -> System.out.printf("%4d", matrix[j]));
-            System.out.println();
+        System.out.println("\nMatriz de incidência");
+        if (incidenceMatrix == null){
+            System.out.println("Grafo não direcionado\n");
+        }
+        else {
+            for (int[] matrix : incidenceMatrix) {
+                IntStream.range(0, incidenceMatrix[0].length).forEach(j -> System.out.printf("%4d", matrix[j]));
+                System.out.println();
+            }
         }
 
         int graphOrder = graph.getGraphOrder();
         System.out.println("Ordem do grafo");
         System.out.println(graphOrder);
+
+        System.out.println("Grau do vértice");
+        System.out.println(graph.getVertexDegree(v1));
     }
 
 

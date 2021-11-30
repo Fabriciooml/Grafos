@@ -7,10 +7,12 @@ import java.util.Objects;
 public class Graph {
     List<Vertex> vertexList;
     List<Edge> edgeList;
+    boolean directed;
 
-    public Graph() {
+    public Graph(boolean directed) {
         vertexList = new ArrayList<Vertex>();
         edgeList = new ArrayList<Edge>();
+        this.directed = directed;
     }
 
     public Vertex addVertex(String name) {
@@ -19,11 +21,15 @@ public class Graph {
         return v;
     }
 
-    public Edge addEdge(Vertex origin, Vertex destiny) {
+    public void addEdge(Vertex origin, Vertex destiny) {
         Edge e = new Edge(origin, destiny);
         origin.addAdj(e);
         edgeList.add(e);
-        return e;
+        if (!this.directed){
+            Edge e_inverted = new Edge(destiny, origin);
+            destiny.addAdj(e_inverted);
+            edgeList.add(e_inverted);
+        }
     }
 
     public String getAdjList() {
@@ -76,26 +82,32 @@ public class Graph {
     }
 
     public int[][] getIncidenceMatrix(){
-        int n_vertex = vertexList.size();
-        int n_edges = edgeList.size();
-        int[][] incidenceMatrix = new int[n_vertex][n_edges];
-        for (int i = 0; i < n_edges; i++) {
-            Edge e = edgeList.get(i);
-            for (int j = 0; j < n_vertex; j++) {
-                incidenceMatrix[j][i] = 0;
-                Vertex v = vertexList.get(j);
-                if (e.destiny.equals(v)) {
-                    incidenceMatrix[j][i] = -1;
-                }
-                else if (e.origin.equals(v)){
-                 incidenceMatrix[j][i] = 1;
+        if (this.directed) {
+            int n_vertex = vertexList.size();
+            int n_edges = edgeList.size();
+            int[][] incidenceMatrix = new int[n_vertex][n_edges];
+            for (int i = 0; i < n_edges; i++) {
+                Edge e = edgeList.get(i);
+                for (int j = 0; j < n_vertex; j++) {
+                    incidenceMatrix[j][i] = 0;
+                    Vertex v = vertexList.get(j);
+                    if (e.destiny.equals(v)) {
+                        incidenceMatrix[j][i] = -1;
+                    } else if (e.origin.equals(v)) {
+                        incidenceMatrix[j][i] = 1;
+                    }
                 }
             }
+            return incidenceMatrix;
         }
-        return incidenceMatrix;
+        return null;
     }
 
     public int getGraphOrder(){
         return vertexList.size();
+    }
+
+    public int getVertexDegree(Vertex vertex){
+        return getAdjListVertex(vertex).size();
     }
 }
