@@ -47,7 +47,7 @@ public class Main {
         int[][] incidenceMatrix = graph.getIncidenceMatrix();
         System.out.println("\nMatriz de incidência");
         if (incidenceMatrix == null){
-            System.out.println("Grafo não direcionado\n");
+            System.out.println("Grafo não direcionado");
         }
         else {
             for (int[] matrix : incidenceMatrix) {
@@ -57,11 +57,14 @@ public class Main {
         }
 
         int graphOrder = graph.getGraphOrder();
-        System.out.println("Ordem do grafo");
+        System.out.println("\nOrdem do grafo");
         System.out.println(graphOrder);
 
-        System.out.println("Grau do vértice");
+        System.out.println("\nGrau do vértice");
         System.out.println(graph.getVertexDegree(v1));
+
+        System.out.println("\nGrafo é simples?");
+        System.out.println(graph.isSimple());
     }
 
 

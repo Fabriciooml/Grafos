@@ -5,14 +5,18 @@ import java.util.List;
 import java.util.Objects;
 
 public class Graph {
-    List<Vertex> vertexList;
-    List<Edge> edgeList;
-    boolean directed;
+    private final List<Vertex> vertexList;
+    private final List<Edge> edgeList;
+    private final boolean directed;
 
     public Graph(boolean directed) {
         vertexList = new ArrayList<Vertex>();
         edgeList = new ArrayList<Edge>();
         this.directed = directed;
+    }
+
+    protected boolean isDirected(){
+        return this.directed;
     }
 
     public Vertex addVertex(String name) {
@@ -25,7 +29,7 @@ public class Graph {
         Edge e = new Edge(origin, destiny);
         origin.addAdj(e);
         edgeList.add(e);
-        if (!this.directed){
+        if (!isDirected()){
             Edge e_inverted = new Edge(destiny, origin);
             destiny.addAdj(e_inverted);
             edgeList.add(e_inverted);
@@ -82,7 +86,7 @@ public class Graph {
     }
 
     public int[][] getIncidenceMatrix(){
-        if (this.directed) {
+        if (isDirected()) {
             int n_vertex = vertexList.size();
             int n_edges = edgeList.size();
             int[][] incidenceMatrix = new int[n_vertex][n_edges];
@@ -109,5 +113,22 @@ public class Graph {
 
     public int getVertexDegree(Vertex vertex){
         return getAdjListVertex(vertex).size();
+    }
+
+    protected boolean isSelfPointing(Vertex vertex){
+        List<Vertex> adjList = getAdjListVertex(vertex);
+        return  adjList.contains(vertex);
+    }
+
+    public boolean isSimple(){
+        if (!isDirected()){
+            for (Vertex v: vertexList) {
+                if (isSelfPointing(v)){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }
