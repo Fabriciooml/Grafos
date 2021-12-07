@@ -10,5 +10,5 @@
 - [x] Imprimir se o caminho entre 2 vértices existe
 - [x] Opção se grafo é orientado
 - [x] Grafo valorado
-- [ ] Exemplo grafo simples
-- [ ] Exemplo multigrafo
+- [x] Exemplo grafo simples
+- [x] Exemplo multigrafo
