@@ -131,4 +131,35 @@ public class Graph {
         }
         return false;
     }
+
+    private boolean recHasPath(List<Vertex> adjList, Vertex destiny, List<Vertex> visitedVertexes){
+
+        if(!adjList.contains(destiny)){
+            for (Vertex v: adjList) {
+                if(!visitedVertexes.contains(v)){
+                    visitedVertexes.add(v);
+                    List<Vertex> vAdjList = getAdjListVertex(v);
+                    boolean hasPath = recHasPath(vAdjList, destiny, visitedVertexes);
+                    if(hasPath){
+                        return true;
+                    }
+                }
+            }
+        }
+        else{
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasPath(Vertex origin, Vertex destiny){
+        boolean hasPath = false;
+        List<Vertex> visitedVertexes = new ArrayList<>();
+        visitedVertexes.add(origin);
+        List<Vertex> adjList = getAdjListVertex(origin);
+        if(vertexList.contains(origin) && vertexList.contains(destiny)){
+            hasPath = recHasPath(adjList, destiny, visitedVertexes);
+        }
+        return hasPath;
+    }
 }

@@ -1,4 +1,4 @@
-# Grafos Semana 6
+# Grafos
 
 # Este repositório contêm:
 
@@ -7,3 +7,8 @@
 - [x] Mostrar grau do grafo
 - [x] Mostrar ordem do grafo
 - [x] Mostrar se é um grafo simples
+- [x] Imprimir se o caminho entre 2 vértices existe
+- [ ] Opção se grafo é orientado
+- [ ] Grafo valorado
+- [ ] Exemplo grafo simples
+- [ ] Exemplo multigrafo

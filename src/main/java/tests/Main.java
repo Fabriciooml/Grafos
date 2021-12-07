@@ -15,6 +15,7 @@ public class Main {
         Vertex v4 = graph.addVertex("v4");
         Vertex v5 = graph.addVertex("v5");
         Vertex v6 = graph.addVertex("v6");
+        Vertex v7 = graph.addVertex("v7");
         graph.addEdge(v1, v3);
         graph.addEdge(v1, v2);
         graph.addEdge(v1, v4);
@@ -65,6 +66,11 @@ public class Main {
 
         System.out.println("\nGrafo é simples?");
         System.out.println(graph.isSimple());
+
+        Vertex v6 = graph.getVertex("v6");
+
+        System.out.println("\nO caminho existe?");
+        System.out.println(graph.hasPath(v1, v6));
     }
 
 
