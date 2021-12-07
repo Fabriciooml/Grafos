@@ -8,7 +8,7 @@
 - [x] Mostrar ordem do grafo
 - [x] Mostrar se é um grafo simples
 - [x] Imprimir se o caminho entre 2 vértices existe
-- [ ] Opção se grafo é orientado
-- [ ] Grafo valorado
+- [x] Opção se grafo é orientado
+- [x] Grafo valorado
 - [ ] Exemplo grafo simples
 - [ ] Exemplo multigrafo

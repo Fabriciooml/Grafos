@@ -15,7 +15,7 @@ public class Graph {
         this.directed = directed;
     }
 
-    protected boolean isDirected(){
+    public boolean isDirected(){
         return this.directed;
     }
 
@@ -25,12 +25,12 @@ public class Graph {
         return v;
     }
 
-    public void addEdge(Vertex origin, Vertex destiny) {
-        Edge e = new Edge(origin, destiny);
+    public void addEdge(Vertex origin, Vertex destiny, float value) {
+        Edge e = new Edge(origin, destiny, value);
         origin.addAdj(e);
         edgeList.add(e);
         if (!isDirected()){
-            Edge e_inverted = new Edge(destiny, origin);
+            Edge e_inverted = new Edge(destiny, origin, value);
             destiny.addAdj(e_inverted);
             edgeList.add(e_inverted);
         }

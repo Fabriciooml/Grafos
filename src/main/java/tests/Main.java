@@ -16,14 +16,14 @@ public class Main {
         Vertex v5 = graph.addVertex("v5");
         Vertex v6 = graph.addVertex("v6");
         Vertex v7 = graph.addVertex("v7");
-        graph.addEdge(v1, v3);
-        graph.addEdge(v1, v2);
-        graph.addEdge(v1, v4);
-        graph.addEdge(v3, v2);
-        graph.addEdge(v4, v2);
-        graph.addEdge(v2, v6);
-        graph.addEdge(v5, v4);
-        graph.addEdge(v6, v5);
+        graph.addEdge(v1, v3, 0);
+        graph.addEdge(v1, v2, 0);
+        graph.addEdge(v1, v4, 0);
+        graph.addEdge(v3, v2, 0);
+        graph.addEdge(v4, v2, 0);
+        graph.addEdge(v2, v6, 0);
+        graph.addEdge(v5, v4, 0);
+        graph.addEdge(v6, v5, 0);
         return graph;
     }
 
@@ -71,6 +71,9 @@ public class Main {
 
         System.out.println("\nO caminho existe?");
         System.out.println(graph.hasPath(v1, v6));
+
+        System.out.println("\nGrafo é direcionado?");
+        System.out.println(graph.isDirected());
     }
 
 
