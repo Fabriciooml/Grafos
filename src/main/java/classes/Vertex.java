@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vertex {
-    String name;
-    List<Edge> adj;
+    protected String name;
+    protected List<Edge> adj;
 
     Vertex(String name) {
         this.name = name;

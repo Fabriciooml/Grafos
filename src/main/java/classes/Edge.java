@@ -1,9 +1,9 @@
 package classes;
 
 public class Edge {
-    Vertex origin;
-    Vertex destiny;
-    int value;
+    protected Vertex origin;
+    protected Vertex destiny;
+    protected int value;
 
     Edge(Vertex origin, Vertex destiny, int value) {
         this.origin = origin;

@@ -19,6 +19,14 @@ public class Graph {
         return this.directed;
     }
 
+    public List<Vertex> getVertexList() {
+        return vertexList;
+    }
+
+    public List<Edge> getEdgeList() {
+        return edgeList;
+    }
+
     public boolean containsVertex(Vertex v){
         return vertexList.contains(v);
     }
