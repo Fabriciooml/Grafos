@@ -12,3 +12,5 @@
 - [x] Grafo valorado
 - [x] Exemplo grafo simples
 - [x] Exemplo multigrafo
+- [x] Criar grafo via CLI
+- [ ] Imprimir dados do grafo via CLI

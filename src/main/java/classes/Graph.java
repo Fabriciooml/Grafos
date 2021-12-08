@@ -19,13 +19,17 @@ public class Graph {
         return this.directed;
     }
 
+    public boolean containsVertex(Vertex v){
+        return vertexList.contains(v);
+    }
+
     public Vertex addVertex(String name) {
         Vertex v = new Vertex(name);
         vertexList.add(v);
         return v;
     }
 
-    public void addEdge(Vertex origin, Vertex destiny, float value) {
+    public void addEdge(Vertex origin, Vertex destiny, int value) {
         Edge e = new Edge(origin, destiny, value);
         origin.addAdj(e);
         edgeList.add(e);
