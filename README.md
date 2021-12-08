@@ -13,5 +13,5 @@
 - [x] Exemplo grafo simples
 - [x] Exemplo multigrafo
 - [x] Criar grafo via CLI
-- [ ] Imprimir dados do grafo via CLI
-- [ ] Usar grafos de exemplo via CLI
+- [x] Imprimir dados do grafo via CLI
+- [x] Usar grafos de exemplo via CLI

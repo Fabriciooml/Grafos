@@ -4,6 +4,7 @@ import classes.Graph;
 import classes.Vertex;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
@@ -93,7 +94,92 @@ public class Main {
                 System.out.println(graph.isDirected());
 
             } else if(op == 3){
-                System.out.println("opção 3");
+                System.out.println("## 3.1) Grafo Simples direcionado");
+                System.out.println("## 3.2) Grafo Simples não direcionado");
+                System.out.println("## 3.3) Multigrafo direcionado");
+                System.out.println("## 3.4) Multigrafo não direcionado");
+
+                String opExampleGraph = read.next();
+
+                if (Objects.equals(opExampleGraph, "3.1")){
+                    graph = new Graph(true);
+                    Vertex v1 = graph.addVertex("v1");
+                    Vertex v2 = graph.addVertex("v2");
+                    Vertex v3 = graph.addVertex("v3");
+                    Vertex v4 = graph.addVertex("v4");
+                    Vertex v5 = graph.addVertex("v5");
+                    Vertex v6 = graph.addVertex("v6");
+                    graph.addEdge(v1, v3, 0);
+                    graph.addEdge(v1, v2, 0);
+                    graph.addEdge(v1, v4, 0);
+                    graph.addEdge(v3, v2, 0);
+                    graph.addEdge(v4, v2, 0);
+                    graph.addEdge(v2, v6, 0);
+                    graph.addEdge(v5, v4, 0);
+                    graph.addEdge(v6, v5, 0);
+
+                } else if (Objects.equals(opExampleGraph, "3.2")){
+                    graph = new Graph(false);
+                    Vertex v1 = graph.addVertex("v1");
+                    Vertex v2 = graph.addVertex("v2");
+                    Vertex v3 = graph.addVertex("v3");
+                    Vertex v4 = graph.addVertex("v4");
+                    Vertex v5 = graph.addVertex("v5");
+                    Vertex v6 = graph.addVertex("v6");
+                    graph.addEdge(v1, v3, 0);
+                    graph.addEdge(v1, v2, 0);
+                    graph.addEdge(v1, v4, 0);
+                    graph.addEdge(v3, v2, 0);
+                    graph.addEdge(v4, v2, 0);
+                    graph.addEdge(v2, v6, 0);
+                    graph.addEdge(v5, v4, 0);
+                    graph.addEdge(v6, v5, 0);
+
+                }else if (Objects.equals(opExampleGraph, "3.3")){
+                    graph = new Graph(true);
+                    Vertex v1 = graph.addVertex("v1");
+                    Vertex v2 = graph.addVertex("v2");
+                    Vertex v3 = graph.addVertex("v3");
+                    Vertex v4 = graph.addVertex("v4");
+                    Vertex v5 = graph.addVertex("v5");
+                    Vertex v6 = graph.addVertex("v6");
+                    graph.addEdge(v1, v3, 0);
+                    graph.addEdge(v1, v2, 0);
+                    graph.addEdge(v1, v2, 0);
+                    graph.addEdge(v1, v4, 0);
+                    graph.addEdge(v1, v1, 0);
+                    graph.addEdge(v3, v2, 0);
+                    graph.addEdge(v2, v2, 0);
+                    graph.addEdge(v4, v2, 0);
+                    graph.addEdge(v2, v6, 0);
+                    graph.addEdge(v5, v4, 0);
+                    graph.addEdge(v6, v5, 0);
+                    graph.addEdge(v6, v5, 0);
+
+                }else if (Objects.equals(opExampleGraph, "3.4")) {
+                    graph = new Graph(false);
+                    Vertex v1 = graph.addVertex("v1");
+                    Vertex v2 = graph.addVertex("v2");
+                    Vertex v3 = graph.addVertex("v3");
+                    Vertex v4 = graph.addVertex("v4");
+                    Vertex v5 = graph.addVertex("v5");
+                    Vertex v6 = graph.addVertex("v6");
+                    graph.addEdge(v1, v3, 0);
+                    graph.addEdge(v1, v2, 0);
+                    graph.addEdge(v1, v2, 0);
+                    graph.addEdge(v1, v4, 0);
+                    graph.addEdge(v1, v1, 0);
+                    graph.addEdge(v3, v2, 0);
+                    graph.addEdge(v2, v2, 0);
+                    graph.addEdge(v4, v2, 0);
+                    graph.addEdge(v2, v6, 0);
+                    graph.addEdge(v5, v4, 0);
+                    graph.addEdge(v6, v5, 0);
+                    graph.addEdge(v6, v5, 0);
+                }
+                assert graph != null;
+                System.out.println("Lista de Adjacências");
+                System.out.println(graph.getAdjList());
             }
             else if (op == 4) {
                 assert graph != null;
