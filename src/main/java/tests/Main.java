@@ -19,14 +19,14 @@ public class Main {
         Vertex v4 = graph.addVertex("v4");
         Vertex v5 = graph.addVertex("v5");
         Vertex v6 = graph.addVertex("v6");
-        graph.addEdge(v1, v3, 0);
-        graph.addEdge(v1, v2, 0);
-        graph.addEdge(v1, v4, 0);
-        graph.addEdge(v3, v2, 0);
-        graph.addEdge(v4, v2, 0);
-        graph.addEdge(v2, v6, 0);
-        graph.addEdge(v5, v4, 0);
-        graph.addEdge(v6, v5, 0);
+        graph.addEdge(v1, v3, "0");
+        graph.addEdge(v1, v2, "0");
+        graph.addEdge(v1, v4, "0");
+        graph.addEdge(v3, v2, "0");
+        graph.addEdge(v4, v2, "0");
+        graph.addEdge(v2, v6, "0");
+        graph.addEdge(v5, v4, "0");
+        graph.addEdge(v6, v5, "0");
         return graph;
     }
 
@@ -38,18 +38,18 @@ public class Main {
         Vertex v4 = graph.addVertex("v4");
         Vertex v5 = graph.addVertex("v5");
         Vertex v6 = graph.addVertex("v6");
-        graph.addEdge(v1, v3, 0);
-        graph.addEdge(v1, v2, 0);
-        graph.addEdge(v1, v2, 0);
-        graph.addEdge(v1, v4, 0);
-        graph.addEdge(v1, v1, 0);
-        graph.addEdge(v3, v2, 0);
-        graph.addEdge(v2, v2, 0);
-        graph.addEdge(v4, v2, 0);
-        graph.addEdge(v2, v6, 0);
-        graph.addEdge(v5, v4, 0);
-        graph.addEdge(v6, v5, 0);
-        graph.addEdge(v6, v5, 0);
+        graph.addEdge(v1, v3, "0");
+        graph.addEdge(v1, v2, "0");
+        graph.addEdge(v1, v2, "0");
+        graph.addEdge(v1, v4, "0");
+        graph.addEdge(v1, v1, "0");
+        graph.addEdge(v3, v2, "0");
+        graph.addEdge(v2, v2, "0");
+        graph.addEdge(v4, v2, "0");
+        graph.addEdge(v2, v6, "0");
+        graph.addEdge(v5, v4, "0");
+        graph.addEdge(v6, v5, "0");
+        graph.addEdge(v6, v5, "0");
         return graph;
     }
 
@@ -103,9 +103,9 @@ public class Main {
 
         graph.saveGraphFile("grafo1");
 
-
+        MyGraph graph2 = MyGraph.readGraphFile("./src/main/files/graphFiles/graph_1.dot");
+        System.out.println("Lista de Adjacências");
+        System.out.println(graph2.getAdjList());
+        graph2.saveGraphFile("grafo2");
     }
-
-
-
 }

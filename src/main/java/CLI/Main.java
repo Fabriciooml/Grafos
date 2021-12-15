@@ -23,9 +23,10 @@ public class Main {
             System.out.println("## 1) Ler grafo manual");
             System.out.println("## 2) Mostrar dados de grafo");
             System.out.println("## 3) Usar grafo de exemplo");
-            System.out.println("## 4) Pesquisar caminho entre 2 vértices");
-            System.out.println("## 5) Salvar grafo em arquivo .dot");
-            System.out.println("## 6) sair");
+            System.out.println("## 4) Ler grafo de arquivo .dot");
+            System.out.println("## 5) Pesquisar caminho entre 2 vértices");
+            System.out.println("## 6) Salvar grafo em arquivo .dot");
+            System.out.println("## 7) sair");
             int op = read.nextInt();
 
             if (op == 1) {
@@ -47,7 +48,7 @@ public class Main {
                     System.out.println("Nome da segunda vértice");
                     String v2 = read.next();
                     System.out.println("Valor da aresta");
-                    int value = read.nextInt();
+                    String value = read.next();
                     Vertex vertex1 = graph.getVertex(v1);
                     Vertex vertex2 = graph.getVertex(v2);
                     graph.addEdge(vertex1, vertex2, value);
@@ -113,14 +114,14 @@ public class Main {
                     Vertex v4 = graph.addVertex("v4");
                     Vertex v5 = graph.addVertex("v5");
                     Vertex v6 = graph.addVertex("v6");
-                    graph.addEdge(v1, v3, 0);
-                    graph.addEdge(v1, v2, 0);
-                    graph.addEdge(v1, v4, 0);
-                    graph.addEdge(v3, v2, 0);
-                    graph.addEdge(v4, v2, 0);
-                    graph.addEdge(v2, v6, 0);
-                    graph.addEdge(v5, v4, 0);
-                    graph.addEdge(v6, v5, 0);
+                    graph.addEdge(v1, v3, "0");
+                    graph.addEdge(v1, v2, "0");
+                    graph.addEdge(v1, v4, "0");
+                    graph.addEdge(v3, v2, "0");
+                    graph.addEdge(v4, v2, "0");
+                    graph.addEdge(v2, v6, "0");
+                    graph.addEdge(v5, v4, "0");
+                    graph.addEdge(v6, v5, "0");
 
                 } else if (Objects.equals(opExampleGraph, "3.2")){
                     graph = new MyGraph(false);
@@ -130,14 +131,14 @@ public class Main {
                     Vertex v4 = graph.addVertex("v4");
                     Vertex v5 = graph.addVertex("v5");
                     Vertex v6 = graph.addVertex("v6");
-                    graph.addEdge(v1, v3, 0);
-                    graph.addEdge(v1, v2, 0);
-                    graph.addEdge(v1, v4, 0);
-                    graph.addEdge(v3, v2, 0);
-                    graph.addEdge(v4, v2, 0);
-                    graph.addEdge(v2, v6, 0);
-                    graph.addEdge(v5, v4, 0);
-                    graph.addEdge(v6, v5, 0);
+                    graph.addEdge(v1, v3, "0");
+                    graph.addEdge(v1, v2, "0");
+                    graph.addEdge(v1, v4, "0");
+                    graph.addEdge(v3, v2, "0");
+                    graph.addEdge(v4, v2, "0");
+                    graph.addEdge(v2, v6, "0");
+                    graph.addEdge(v5, v4, "0");
+                    graph.addEdge(v6, v5, "0");
 
                 }else if (Objects.equals(opExampleGraph, "3.3")){
                     graph = new MyGraph(true);
@@ -147,18 +148,18 @@ public class Main {
                     Vertex v4 = graph.addVertex("v4");
                     Vertex v5 = graph.addVertex("v5");
                     Vertex v6 = graph.addVertex("v6");
-                    graph.addEdge(v1, v3, 0);
-                    graph.addEdge(v1, v2, 0);
-                    graph.addEdge(v1, v2, 0);
-                    graph.addEdge(v1, v4, 0);
-                    graph.addEdge(v1, v1, 0);
-                    graph.addEdge(v3, v2, 0);
-                    graph.addEdge(v2, v2, 0);
-                    graph.addEdge(v4, v2, 0);
-                    graph.addEdge(v2, v6, 0);
-                    graph.addEdge(v5, v4, 0);
-                    graph.addEdge(v6, v5, 0);
-                    graph.addEdge(v6, v5, 0);
+                    graph.addEdge(v1, v3, "0");
+                    graph.addEdge(v1, v2, "0");
+                    graph.addEdge(v1, v2, "0");
+                    graph.addEdge(v1, v4, "0");
+                    graph.addEdge(v1, v1, "0");
+                    graph.addEdge(v3, v2, "0");
+                    graph.addEdge(v2, v2, "0");
+                    graph.addEdge(v4, v2, "0");
+                    graph.addEdge(v2, v6, "0");
+                    graph.addEdge(v5, v4, "0");
+                    graph.addEdge(v6, v5, "0");
+                    graph.addEdge(v6, v5, "0");
 
                 }else if (Objects.equals(opExampleGraph, "3.4")) {
                     graph = new MyGraph(false);
@@ -168,24 +169,29 @@ public class Main {
                     Vertex v4 = graph.addVertex("v4");
                     Vertex v5 = graph.addVertex("v5");
                     Vertex v6 = graph.addVertex("v6");
-                    graph.addEdge(v1, v3, 0);
-                    graph.addEdge(v1, v2, 0);
-                    graph.addEdge(v1, v2, 0);
-                    graph.addEdge(v1, v4, 0);
-                    graph.addEdge(v1, v1, 0);
-                    graph.addEdge(v3, v2, 0);
-                    graph.addEdge(v2, v2, 0);
-                    graph.addEdge(v4, v2, 0);
-                    graph.addEdge(v2, v6, 0);
-                    graph.addEdge(v5, v4, 0);
-                    graph.addEdge(v6, v5, 0);
-                    graph.addEdge(v6, v5, 0);
+                    graph.addEdge(v1, v3, "0");
+                    graph.addEdge(v1, v2, "0");
+                    graph.addEdge(v1, v2, "0");
+                    graph.addEdge(v1, v4, "0");
+                    graph.addEdge(v1, v1, "0");
+                    graph.addEdge(v3, v2, "0");
+                    graph.addEdge(v2, v2, "0");
+                    graph.addEdge(v4, v2, "0");
+                    graph.addEdge(v2, v6, "0");
+                    graph.addEdge(v5, v4, "0");
+                    graph.addEdge(v6, v5, "0");
+                    graph.addEdge(v6, v5, "0");
                 }
                 assert graph != null;
                 System.out.println("Lista de Adjacências");
                 System.out.println(graph.getAdjList());
             }
-            else if (op == 4) {
+            else if (op == 4){
+                System.out.println("Qual o caminho para o arquivo?");
+                String filepath = read.next();
+                graph = MyGraph.readGraphFile(filepath);
+            }
+            else if (op == 5) {
                 assert graph != null;
                 System.out.println("Vértice de origem");
                 String origin = read.next();
@@ -197,13 +203,13 @@ public class Main {
                 System.out.println(graph.hasPath(originVertex, destinyVertex));
 
             }
-            else if (op == 5) {
+            else if (op == 6) {
                 System.out.println("Nome do arquivo");
                 String filename = read.next();
                 assert graph != null;
                 graph.saveGraphFile(filename);
             }
-            else if (op == 6) {
+            else if (op == 7) {
                 break;
             }
         }

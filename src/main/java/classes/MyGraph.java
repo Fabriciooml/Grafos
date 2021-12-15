@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MyGraph {
-    private final List<Vertex> vertexList;
+    private static List<Vertex> vertexList = null;
     private final List<Edge> edgeList;
     private final boolean directed;
 
@@ -38,7 +38,7 @@ public class MyGraph {
         return v;
     }
 
-    public void addEdge(Vertex origin, Vertex destiny, int value) {
+    public void addEdge(Vertex origin, Vertex destiny, String value) {
         Edge e = new Edge(origin, destiny, value);
         origin.addAdj(e);
         edgeList.add(e);
@@ -54,7 +54,12 @@ public class MyGraph {
         for (Vertex u : vertexList) {
 
             for (Edge e : u.adj) {
-                r.append(u.name).append(" -> ");
+                if(isDirected()) {
+                    r.append(u.name).append(" -> ");
+                }
+                else{
+                    r.append(u.name).append(" -- ");
+                }
                 Vertex v = e.destiny;
                 r.append(v.name).append(";");
                 r.append("\n");
@@ -72,7 +77,7 @@ public class MyGraph {
         return listAdj;
     }
 
-    public Vertex getVertex(String name){
+    public static Vertex getVertex(String name){
         for (Vertex v: vertexList) {
             if (Objects.equals(v.name, name)){
                 return v;
@@ -191,7 +196,7 @@ public class MyGraph {
             bw.write("digraph "+graphFileName);
         }
         else{
-            bw.write("graph "+graphFileName);
+            bw.write("strict graph "+graphFileName);
         }
         bw.write("{");
         bw.newLine();
@@ -203,5 +208,66 @@ public class MyGraph {
 
         bw.close();
         fw.close();
+    }
+
+    public static MyGraph readGraphFile(String graphPath) throws IOException {
+        File arquivo = new File( graphPath);
+        MyGraph graph = null;
+
+        if(arquivo.exists()) {
+            FileReader fr = new FileReader( arquivo );
+            BufferedReader br = new BufferedReader( fr );
+            String[] vertexes;
+            String v2;
+            String value;
+
+            while( br.ready() ) {
+                String linha = br.readLine();
+                if (linha.contains("digraph")){
+                    graph = new MyGraph(true);
+                    System.out.println(linha.contains("digraph"));
+                }
+                else if(linha.contains("graph")){
+                    graph = new MyGraph(false);
+                }
+
+                if(linha.contains("->") || linha.contains("--")){
+                    if(graph.isDirected()){
+                        vertexes = linha.split("->");
+                    }
+                    else{
+                        vertexes = linha.split("--");
+                    }
+                    String v1 = vertexes[0].strip();
+
+                    if(vertexes[1].contains("[")){
+                        String[] v2_label = vertexes[1].split("\\[");
+                        v2 = v2_label[0].strip();
+                        String[] labelStrList = v2_label[1].split("=");
+                        value = labelStrList[1].strip();
+                        value = value.substring(0, value.length() - 1);
+                    }
+                    else {
+                        v2 = vertexes[1];
+                        v2 = v2.substring(0, v2.length() - 1).strip();
+                        value = "0";
+                    }
+                    Vertex vertexV1 = getVertex(v1);
+                    if (vertexV1 == null) {
+                        vertexV1 = graph.addVertex(v1);
+                    }
+                    Vertex vertexV2 = getVertex(v2);
+                    if (vertexV2 == null) {
+                        vertexV2 = graph.addVertex(v2);
+                    }
+
+                    graph.addEdge(vertexV1, vertexV2, value);
+
+                }
+
+            }
+        }
+
+        return graph;
     }
 }
