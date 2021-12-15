@@ -1,14 +1,18 @@
 package tests;
 
-import classes.Graph;
+import classes.MyGraph;
 import classes.Vertex;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import br.com.davesmartins.api.Graph;
+
 public class Main {
-    static Graph createSimpleGraph() {
-        Graph graph = new Graph(false);
+    static MyGraph createSimpleGraph() {
+        MyGraph graph = new MyGraph(false);
         Vertex v1 = graph.addVertex("v1");
         Vertex v2 = graph.addVertex("v2");
         Vertex v3 = graph.addVertex("v3");
@@ -26,8 +30,8 @@ public class Main {
         return graph;
     }
 
-    static Graph createMultiGraph() {
-        Graph graph = new Graph(true);
+    static MyGraph createMultiGraph() {
+        MyGraph graph = new MyGraph(true);
         Vertex v1 = graph.addVertex("v1");
         Vertex v2 = graph.addVertex("v2");
         Vertex v3 = graph.addVertex("v3");
@@ -49,8 +53,8 @@ public class Main {
         return graph;
     }
 
-    public static void main(String[] args) {
-        Graph graph = createMultiGraph();
+    public static void main(String[] args) throws IOException {
+        MyGraph graph = createMultiGraph();
 
         System.out.println("Lista de Adjacências");
         System.out.println(graph.getAdjList());
@@ -96,6 +100,10 @@ public class Main {
 
         System.out.println("\nGrafo é direcionado?");
         System.out.println(graph.isDirected());
+
+        graph.saveGraphFile("grafo1");
+
+
     }
 
 

@@ -1,15 +1,16 @@
 package classes;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Graph {
+public class MyGraph {
     private final List<Vertex> vertexList;
     private final List<Edge> edgeList;
     private final boolean directed;
 
-    public Graph(boolean directed) {
+    public MyGraph(boolean directed) {
         vertexList = new ArrayList<Vertex>();
         edgeList = new ArrayList<Edge>();
         this.directed = directed;
@@ -51,12 +52,14 @@ public class Graph {
     public String getAdjList() {
         StringBuilder r = new StringBuilder();
         for (Vertex u : vertexList) {
-            r.append(u.name).append(" -> ");
+
             for (Edge e : u.adj) {
+                r.append(u.name).append(" -> ");
                 Vertex v = e.destiny;
-                r.append(v.name).append(", ");
+                r.append(v.name).append(";");
+                r.append("\n");
             }
-            r.append("\n");
+
         }
         return r.toString();
     }
@@ -173,5 +176,32 @@ public class Graph {
             hasPath = recHasPath(adjList, destiny, visitedVertexes);
         }
         return hasPath;
+    }
+
+    public void saveGraphFile(String graphFileName) throws IOException {
+        File arquivo = new File("./src/main/files/graphFiles/"+graphFileName+".dot");
+
+        arquivo.createNewFile();
+
+        FileWriter fw = new FileWriter( arquivo );
+
+        BufferedWriter bw = new BufferedWriter( fw );
+
+        if (isDirected()){
+            bw.write("digraph "+graphFileName);
+        }
+        else{
+            bw.write("graph "+graphFileName);
+        }
+        bw.write("{");
+        bw.newLine();
+
+        bw.write(getAdjList());
+
+        bw.write("}");
+        bw.newLine();
+
+        bw.close();
+        fw.close();
     }
 }

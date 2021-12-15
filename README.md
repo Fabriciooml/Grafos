@@ -15,3 +15,7 @@
 - [x] Criar grafo via CLI
 - [x] Imprimir dados do grafo via CLI
 - [x] Usar grafos de exemplo via CLI
+- [ ] Ler aquivo com grafo
+- [ ] Criar grafo a partir de arquivo
+- [x] Salvar grafo usando linguagem DOT
+- [ ] Gerar imagem do grafo

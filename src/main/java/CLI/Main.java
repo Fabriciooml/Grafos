@@ -1,8 +1,9 @@
 package CLI;
 
-import classes.Graph;
+import classes.MyGraph;
 import classes.Vertex;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -10,11 +11,11 @@ import java.util.stream.IntStream;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Scanner read = new Scanner(System.in);
 
-        Graph graph = null;
+        MyGraph graph = null;
 
         while (true) {
 
@@ -23,13 +24,14 @@ public class Main {
             System.out.println("## 2) Mostrar dados de grafo");
             System.out.println("## 3) Usar grafo de exemplo");
             System.out.println("## 4) Pesquisar caminho entre 2 vértices");
-            System.out.println("## 5) sair");
+            System.out.println("## 5) Salvar grafo em arquivo .dot");
+            System.out.println("## 6) sair");
             int op = read.nextInt();
 
             if (op == 1) {
                 System.out.println("\nO Grafo é direcionado?");
                 boolean directed = read.nextBoolean();
-                graph = new Graph(directed);
+                graph = new MyGraph(directed);
                 System.out.println("Número de vértices:");
                 int nVertexes = read.nextInt();
                 for (int i = 0; i < nVertexes; i++) {
@@ -50,7 +52,8 @@ public class Main {
                     Vertex vertex2 = graph.getVertex(v2);
                     graph.addEdge(vertex1, vertex2, value);
                 }
-            } else if (op == 2) {
+            }
+            else if (op == 2) {
 
                 assert graph != null;
                 System.out.println("Lista de Adjacências");
@@ -93,7 +96,8 @@ public class Main {
                 System.out.println("\nGrafo é direcionado?");
                 System.out.println(graph.isDirected());
 
-            } else if(op == 3){
+            }
+            else if(op == 3){
                 System.out.println("## 3.1) Grafo Simples direcionado");
                 System.out.println("## 3.2) Grafo Simples não direcionado");
                 System.out.println("## 3.3) Multigrafo direcionado");
@@ -102,7 +106,7 @@ public class Main {
                 String opExampleGraph = read.next();
 
                 if (Objects.equals(opExampleGraph, "3.1")){
-                    graph = new Graph(true);
+                    graph = new MyGraph(true);
                     Vertex v1 = graph.addVertex("v1");
                     Vertex v2 = graph.addVertex("v2");
                     Vertex v3 = graph.addVertex("v3");
@@ -119,7 +123,7 @@ public class Main {
                     graph.addEdge(v6, v5, 0);
 
                 } else if (Objects.equals(opExampleGraph, "3.2")){
-                    graph = new Graph(false);
+                    graph = new MyGraph(false);
                     Vertex v1 = graph.addVertex("v1");
                     Vertex v2 = graph.addVertex("v2");
                     Vertex v3 = graph.addVertex("v3");
@@ -136,7 +140,7 @@ public class Main {
                     graph.addEdge(v6, v5, 0);
 
                 }else if (Objects.equals(opExampleGraph, "3.3")){
-                    graph = new Graph(true);
+                    graph = new MyGraph(true);
                     Vertex v1 = graph.addVertex("v1");
                     Vertex v2 = graph.addVertex("v2");
                     Vertex v3 = graph.addVertex("v3");
@@ -157,7 +161,7 @@ public class Main {
                     graph.addEdge(v6, v5, 0);
 
                 }else if (Objects.equals(opExampleGraph, "3.4")) {
-                    graph = new Graph(false);
+                    graph = new MyGraph(false);
                     Vertex v1 = graph.addVertex("v1");
                     Vertex v2 = graph.addVertex("v2");
                     Vertex v3 = graph.addVertex("v3");
@@ -194,6 +198,12 @@ public class Main {
 
             }
             else if (op == 5) {
+                System.out.println("Nome do arquivo");
+                String filename = read.next();
+                assert graph != null;
+                graph.saveGraphFile(filename);
+            }
+            else if (op == 6) {
                 break;
             }
         }
