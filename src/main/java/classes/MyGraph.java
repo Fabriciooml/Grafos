@@ -265,6 +265,10 @@ public class MyGraph {
 
                 }
 
+                else if(!linha.contains("{") || !linha.contains("}")){
+                    assert graph != null;
+                    graph.addVertex(linha.split(";")[0].strip());
+                }
             }
         }
 

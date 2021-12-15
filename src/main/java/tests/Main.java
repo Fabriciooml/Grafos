@@ -107,5 +107,7 @@ public class Main {
         System.out.println("Lista de Adjacências");
         System.out.println(graph2.getAdjList());
         graph2.saveGraphFile("grafo2");
+
+        Graph.createFileDotToPng("./src/main/files/graphFiles/grafo2.dot", "./src/main/files/graphImages/grafo2.png");
     }
 }

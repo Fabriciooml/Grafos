@@ -18,4 +18,4 @@
 - [x] Ler aquivo com grafo
 - [x] Criar grafo a partir de arquivo
 - [x] Salvar grafo usando linguagem DOT
-- [ ] Gerar imagem do grafo
+- [x] Gerar imagem do grafo

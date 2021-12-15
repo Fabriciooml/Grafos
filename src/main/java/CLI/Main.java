@@ -1,5 +1,6 @@
 package CLI;
 
+import br.com.davesmartins.api.Graph;
 import classes.MyGraph;
 import classes.Vertex;
 
@@ -26,7 +27,8 @@ public class Main {
             System.out.println("## 4) Ler grafo de arquivo .dot");
             System.out.println("## 5) Pesquisar caminho entre 2 vértices");
             System.out.println("## 6) Salvar grafo em arquivo .dot");
-            System.out.println("## 7) sair");
+            System.out.println("## 7) Salvar grafo em png");
+            System.out.println("## 8) sair");
             int op = read.nextInt();
 
             if (op == 1) {
@@ -210,6 +212,11 @@ public class Main {
                 graph.saveGraphFile(filename);
             }
             else if (op == 7) {
+                System.out.println("Caminho do arquivo:");
+                String filepath = read.next();
+                Graph.createFileDotToPng(filepath, "./src/main/files/graphFiles/graph.dot");
+            }
+            else if (op == 8) {
                 break;
             }
         }
