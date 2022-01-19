@@ -19,3 +19,4 @@
 - [x] Criar grafo a partir de arquivo
 - [x] Salvar grafo usando linguagem DOT
 - [x] Gerar imagem do grafo
+- [x] Dijkstra

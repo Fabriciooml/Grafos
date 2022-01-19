@@ -19,14 +19,14 @@ public class Main {
         Vertex v4 = graph.addVertex("v4");
         Vertex v5 = graph.addVertex("v5");
         Vertex v6 = graph.addVertex("v6");
-        graph.addEdge(v1, v3, "0");
-        graph.addEdge(v1, v2, "0");
-        graph.addEdge(v1, v4, "0");
-        graph.addEdge(v3, v2, "0");
-        graph.addEdge(v4, v2, "0");
-        graph.addEdge(v2, v6, "0");
-        graph.addEdge(v5, v4, "0");
-        graph.addEdge(v6, v5, "0");
+        graph.addEdge(v1, v3, 0);
+        graph.addEdge(v1, v2, 0);
+        graph.addEdge(v1, v4, 0);
+        graph.addEdge(v3, v2, 0);
+        graph.addEdge(v4, v2, 0);
+        graph.addEdge(v2, v6, 0);
+        graph.addEdge(v5, v4, 0);
+        graph.addEdge(v6, v5, 0);
         return graph;
     }
 
@@ -38,23 +38,24 @@ public class Main {
         Vertex v4 = graph.addVertex("v4");
         Vertex v5 = graph.addVertex("v5");
         Vertex v6 = graph.addVertex("v6");
-        graph.addEdge(v1, v3, "0");
-        graph.addEdge(v1, v2, "0");
-        graph.addEdge(v1, v2, "0");
-        graph.addEdge(v1, v4, "0");
-        graph.addEdge(v1, v1, "0");
-        graph.addEdge(v3, v2, "0");
-        graph.addEdge(v2, v2, "0");
-        graph.addEdge(v4, v2, "0");
-        graph.addEdge(v2, v6, "0");
-        graph.addEdge(v5, v4, "0");
-        graph.addEdge(v6, v5, "0");
-        graph.addEdge(v6, v5, "0");
+        graph.addEdge(v1, v3, 10);
+        graph.addEdge(v1, v2, 10);
+        graph.addEdge(v1, v2, 10);
+        graph.addEdge(v1, v4, 10);
+        graph.addEdge(v1, v1, 10);
+        graph.addEdge(v3, v2, 10);
+        graph.addEdge(v2, v2, 10);
+        graph.addEdge(v4, v2, 10);
+        graph.addEdge(v2, v6, 10);
+        graph.addEdge(v5, v4, 10);
+        graph.addEdge(v6, v5, 10);
+        graph.addEdge(v6, v5, 10);
         return graph;
     }
 
     public static void main(String[] args) throws IOException {
         MyGraph graph = createMultiGraph();
+        System.out.println(graph.getVertexList());
 
         System.out.println("Lista de Adjacências");
         System.out.println(graph.getAdjList());
@@ -103,10 +104,17 @@ public class Main {
 
         graph.saveGraphFile("grafo1");
 
-        MyGraph graph2 = MyGraph.readGraphFile("./src/main/files/graphFiles/graph_1.dot");
+        float[][] graphMatrix = graph.getGraphMatrix();
+        for (float[] matrix : graphMatrix) {
+            IntStream.range(0, graphMatrix[0].length).forEach(j -> System.out.printf("  %.2f", matrix[j]));
+            System.out.println();
+        }
+        graph.dijkstra(0);
+
+        MyGraph novoGrafo = MyGraph.readGraphFile("./src/main/files/graphFiles/graph_1.dot");
         System.out.println("Lista de Adjacências");
-        System.out.println(graph2.getAdjList());
-        graph2.saveGraphFile("grafo2");
+        System.out.println(novoGrafo.getAdjList());
+        novoGrafo.saveGraphFile("grafo2");
 
         Graph.createFileDotToPng("./src/main/files/graphFiles/grafo2.dot", "./src/main/files/graphImages/grafo2.png");
     }

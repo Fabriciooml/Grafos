@@ -11,8 +11,8 @@ public class MyGraph {
     private final boolean directed;
 
     public MyGraph(boolean directed) {
-        vertexList = new ArrayList<Vertex>();
-        edgeList = new ArrayList<Edge>();
+        this.vertexList = new ArrayList<Vertex>();
+        this.edgeList = new ArrayList<Edge>();
         this.directed = directed;
     }
 
@@ -21,7 +21,7 @@ public class MyGraph {
     }
 
     public List<Vertex> getVertexList() {
-        return vertexList;
+        return new ArrayList<Vertex>(this.vertexList);
     }
 
     public List<Edge> getEdgeList() {
@@ -34,25 +34,24 @@ public class MyGraph {
 
     public Vertex addVertex(String name) {
         Vertex v = new Vertex(name);
-        vertexList.add(v);
+        this.vertexList.add(v);
         return v;
     }
 
-    public void addEdge(Vertex origin, Vertex destiny, String value) {
+    public void addEdge(Vertex origin, Vertex destiny, float value) {
         Edge e = new Edge(origin, destiny, value);
         origin.addAdj(e);
-        edgeList.add(e);
+        this.edgeList.add(e);
         if (!isDirected()){
             Edge e_inverted = new Edge(destiny, origin, value);
             destiny.addAdj(e_inverted);
-            edgeList.add(e_inverted);
+            this.edgeList.add(e_inverted);
         }
     }
 
     public String getAdjList() {
         StringBuilder r = new StringBuilder();
-        for (Vertex u : vertexList) {
-
+        for (Vertex u : this.getVertexList()) {
             for (Edge e : u.adj) {
                 if(isDirected()) {
                     r.append(u.name).append(" -> ");
@@ -87,13 +86,14 @@ public class MyGraph {
     }
 
     public int[][] getAdjMatrix(){
-        int n_vertex = vertexList.size();
+        ArrayList<Vertex> encapVertexList = (ArrayList<Vertex>) getVertexList();
+        int n_vertex = encapVertexList.size();
         int[][] adjMatrix = new int[n_vertex][n_vertex];
         for (int i = 0; i < n_vertex; i++) {
-            Vertex v = vertexList.get(i);
+            Vertex v = encapVertexList.get(i);
             List<Vertex> vList = getAdjListVertex(v);
             for (int j = 0; j < n_vertex; j++) {
-                Vertex v2 = vertexList.get(j);
+                Vertex v2 = encapVertexList.get(j);
                 if (vList.contains(v2)){
                     adjMatrix[i][j] = 1;
                 }
@@ -106,15 +106,16 @@ public class MyGraph {
     }
 
     public int[][] getIncidenceMatrix(){
+        ArrayList<Vertex> encapVertexList = (ArrayList<Vertex>) getVertexList();
         if (isDirected()) {
-            int n_vertex = vertexList.size();
+            int n_vertex = encapVertexList.size();
             int n_edges = edgeList.size();
             int[][] incidenceMatrix = new int[n_vertex][n_edges];
             for (int i = 0; i < n_edges; i++) {
                 Edge e = edgeList.get(i);
                 for (int j = 0; j < n_vertex; j++) {
                     incidenceMatrix[j][i] = 0;
-                    Vertex v = vertexList.get(j);
+                    Vertex v = encapVertexList.get(j);
                     if (e.destiny.equals(v)) {
                         incidenceMatrix[j][i] = -1;
                     } else if (e.origin.equals(v)) {
@@ -128,7 +129,7 @@ public class MyGraph {
     }
 
     public int getGraphOrder(){
-        return vertexList.size();
+        return getVertexList().size();
     }
 
     public int getVertexDegree(Vertex vertex){
@@ -142,7 +143,7 @@ public class MyGraph {
 
     public boolean isSimple(){
         if (!isDirected()){
-            for (Vertex v: vertexList) {
+            for (Vertex v: getVertexList()) {
                 if (isSelfPointing(v)){
                     return false;
                 }
@@ -173,11 +174,12 @@ public class MyGraph {
     }
 
     public boolean hasPath(Vertex origin, Vertex destiny){
+        ArrayList<Vertex> encapVertexList = (ArrayList<Vertex>) getVertexList();
         boolean hasPath = false;
         List<Vertex> visitedVertexes = new ArrayList<>();
         visitedVertexes.add(origin);
         List<Vertex> adjList = getAdjListVertex(origin);
-        if(vertexList.contains(origin) && vertexList.contains(destiny)){
+        if(encapVertexList.contains(origin) && encapVertexList.contains(destiny)){
             hasPath = recHasPath(adjList, destiny, visitedVertexes);
         }
         return hasPath;
@@ -211,7 +213,7 @@ public class MyGraph {
     }
 
     public static MyGraph readGraphFile(String graphPath) throws IOException {
-        File arquivo = new File( graphPath);
+        File arquivo = new File(graphPath);
         MyGraph graph = null;
 
         if(arquivo.exists()) {
@@ -220,6 +222,7 @@ public class MyGraph {
             String[] vertexes;
             String v2;
             String value;
+            float valueFloat;
 
             while( br.ready() ) {
                 String linha = br.readLine();
@@ -231,7 +234,7 @@ public class MyGraph {
                     graph = new MyGraph(false);
                 }
 
-                if(linha.contains("->") || linha.contains("--")){
+                else if((linha.contains("->") || linha.contains("--"))){
                     if(graph.isDirected()){
                         vertexes = linha.split("->");
                     }
@@ -246,11 +249,13 @@ public class MyGraph {
                         String[] labelStrList = v2_label[1].split("=");
                         value = labelStrList[1].strip();
                         value = value.substring(0, value.length() - 1);
+                        value = value.replaceAll("[^\\d.]", "");
+                        valueFloat = Float.parseFloat(value);
                     }
                     else {
                         v2 = vertexes[1];
                         v2 = v2.substring(0, v2.length() - 1).strip();
-                        value = "0";
+                        valueFloat = 0;
                     }
                     Vertex vertexV1 = getVertex(v1);
                     if (vertexV1 == null) {
@@ -261,11 +266,11 @@ public class MyGraph {
                         vertexV2 = graph.addVertex(v2);
                     }
 
-                    graph.addEdge(vertexV1, vertexV2, value);
+                    graph.addEdge(vertexV1, vertexV2, valueFloat);
 
                 }
 
-                else if(!linha.contains("{") || !linha.contains("}")){
+                else if(!linha.contains("{") && !linha.contains("}")){
                     assert graph != null;
                     graph.addVertex(linha.split(";")[0].strip());
                 }
@@ -273,5 +278,76 @@ public class MyGraph {
         }
 
         return graph;
+    }
+
+    public float[][] getGraphMatrix(){
+        ArrayList<Vertex> encapVertexList = (ArrayList<Vertex>) this.getVertexList();
+        int nVertex =  encapVertexList.size();
+        float[][] graph = new float[nVertex][nVertex];
+
+        for (int i = 0; i < nVertex; i++) {
+            for (int j = 0; j < nVertex; j++) {
+                for (Edge e: edgeList) {
+
+                    if (e.origin.name.equals(encapVertexList.get(i).name) && e.destiny.name.equals(encapVertexList.get(j).name)){
+                        graph[i][j] = e.value;
+                    }
+                }
+
+            }
+        }
+
+
+        return graph;
+    }
+
+    int minDistance(float[] dist, Boolean[] sptSet)
+    {
+        float min = Float.MAX_VALUE;
+        int min_index = -1;
+
+        for (int v = 0; v < this.getVertexList().size(); v++)
+            if (sptSet[v] == false && dist[v] <= min) {
+                min = dist[v];
+                min_index = v;
+            }
+
+        return min_index;
+    }
+
+    void printSolution(float[] dist)
+    {
+        System.out.println("Vertex \t\t Distance from Source");
+        for (int i = 0; i < this.getVertexList().size(); i++)
+            System.out.println(i + " \t\t " + dist[i]);
+    }
+
+    public void dijkstra(int src)
+    {
+        float graph[][] = getGraphMatrix();
+        int nVertex = this.getVertexList().size();
+        float dist[] = new float[nVertex];
+
+        Boolean sptSet[] = new Boolean[nVertex];
+
+        for (int i = 0; i < nVertex; i++) {
+            dist[i] = Integer.MAX_VALUE;
+            sptSet[i] = false;
+        }
+
+        dist[src] = 0;
+
+        for (int count = 0; count < nVertex - 1; count++) {
+            int u = minDistance(dist, sptSet);
+
+            sptSet[u] = true;
+
+            for (int v = 0; v < nVertex; v++)
+
+                if (!sptSet[v] && graph[u][v] != 0 && dist[u] != Integer.MAX_VALUE && dist[u] + graph[u][v] < dist[v])
+                    dist[v] = dist[u] + graph[u][v];
+        }
+
+        printSolution(dist);
     }
 }
