@@ -20,3 +20,4 @@
 - [x] Salvar grafo usando linguagem DOT
 - [x] Gerar imagem do grafo
 - [x] Dijkstra
+- [x] Prim

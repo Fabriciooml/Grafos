@@ -306,20 +306,22 @@ public class MyGraph {
         float min = Float.MAX_VALUE;
         int min_index = -1;
 
-        for (int v = 0; v < this.getVertexList().size(); v++)
+        for (int v = 0; v < this.getVertexList().size(); v++) {
             if (sptSet[v] == false && dist[v] <= min) {
                 min = dist[v];
                 min_index = v;
             }
+        }
 
         return min_index;
     }
 
-    void printSolution(float[] dist)
+    void printDijkstra(float[] dist)
     {
         System.out.println("Vertex \t\t Distance from Source");
-        for (int i = 0; i < this.getVertexList().size(); i++)
+        for (int i = 0; i < this.getVertexList().size(); i++) {
             System.out.println(i + " \t\t " + dist[i]);
+        }
     }
 
     public void dijkstra(int src)
@@ -342,12 +344,70 @@ public class MyGraph {
 
             sptSet[u] = true;
 
-            for (int v = 0; v < nVertex; v++)
+            for (int v = 0; v < nVertex; v++) {
 
-                if (!sptSet[v] && graph[u][v] != 0 && dist[u] != Integer.MAX_VALUE && dist[u] + graph[u][v] < dist[v])
+                if (!sptSet[v] && graph[u][v] != 0 && dist[u] != Integer.MAX_VALUE && dist[u] + graph[u][v] < dist[v]) {
                     dist[v] = dist[u] + graph[u][v];
+                }
+            }
         }
 
-        printSolution(dist);
+        printDijkstra(dist);
+    }
+
+    int minKey(float[] key, Boolean[] mstSet)
+    {
+        int min = Integer.MAX_VALUE, min_index = -1;
+
+        for (int v = 0; v < this.getVertexList().size(); v++) {
+            if (mstSet[v] == false && key[v] < min) {
+                min = (int) key[v];
+                min_index = v;
+            }
+        }
+
+        return min_index;
+    }
+
+    void printMST(int parent[], float[] key)
+    {
+        System.out.println("Edge \tWeight");
+        for (int i = 1; i < this.getVertexList().size(); i++) {
+            System.out.println(parent[i] + " - " + i + "\t" + key[i]);
+        }
+    }
+
+    public void primMST()
+    {
+        float[][] graph = this.getGraphMatrix();
+        int V = this.getVertexList().size();
+
+        int parent[] = new int[V];
+
+        float key[] = new float[V];
+
+        Boolean mstSet[] = new Boolean[V];
+
+        for (int i = 0; i < V; i++) {
+            key[i] = Integer.MAX_VALUE;
+            mstSet[i] = false;
+        }
+
+        key[0] = 0;
+        parent[0] = -1;
+        for (int count = 0; count < V - 1; count++) {
+            int u = minKey(key, mstSet);
+
+            mstSet[u] = true;
+
+            for (int v = 0; v < V; v++) {
+                if (graph[u][v] != 0 && mstSet[v] == false && graph[u][v] < key[v]) {
+                    parent[v] = u;
+                    key[v] = graph[u][v];
+                }
+            }
+        }
+
+        printMST(parent, key);
     }
 }

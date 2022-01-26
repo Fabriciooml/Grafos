@@ -25,11 +25,12 @@ public class Main {
             System.out.println("## 2) Mostrar dados de grafo");
             System.out.println("## 3) Usar grafo de exemplo");
             System.out.println("## 4) Dijkstra");
-            System.out.println("## 5) Pesquisar caminho entre 2 vértices");
-            System.out.println("## 6) Salvar grafo em arquivo .dot");
-            System.out.println("## 7) Salvar grafo em png");
-            System.out.println("## 8) Ler grafo de arquivo .dot");
-            System.out.println("## 9) Sair");
+            System.out.println("## 5) Prim");
+            System.out.println("## 6) Pesquisar caminho entre 2 vértices");
+            System.out.println("## 7) Salvar grafo em arquivo .dot");
+            System.out.println("## 8) Salvar grafo em png");
+            System.out.println("## 9) Ler grafo de arquivo .dot");
+            System.out.println("## 10) Sair");
             int op = read.nextInt();
 
             if (op == 1) {
@@ -196,6 +197,9 @@ public class Main {
                 graph.dijkstra(originVertexIndex);
             }
             else if (op == 5) {
+                graph.primMST();
+            }
+            else if (op == 6) {
                 assert graph != null;
                 System.out.println("Vértice de origem");
                 String origin = read.next();
@@ -207,27 +211,26 @@ public class Main {
                 System.out.println(graph.hasPath(originVertex, destinyVertex));
 
             }
-            else if (op == 6) {
+            else if (op == 7) {
                 System.out.println("Nome do arquivo");
                 String filename = read.next();
                 assert graph != null;
                 graph.saveGraphFile(filename);
             }
-            else if (op == 7) {
+            else if (op == 8) {
                 System.out.println("Caminho do arquivo:");
                 String filepath = read.next();
                 Graph.createFileDotToPng(filepath, "./src/main/files/graphFiles/graph.dot");
             }
-            else if (op == 8) {
+            else if (op == 9) {
                 System.out.println("Qual o caminho para o arquivo?");
                 String filepath = read.next();
                 graph = MyGraph.readGraphFile(filepath);
             }
-            else if (op == 9) {
+            else if (op == 10) {
                 break;
             }
         }
-
     }
     
 }
